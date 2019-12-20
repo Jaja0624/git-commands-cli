@@ -10,40 +10,7 @@ import re
 # TODO: Add! Requires github information.
 # git-search.py --add => interaction. Step 1: Command. Step 2: Description
 
-# file_name = 'list'
-
-def find_matches(all, keywords):
-    # try get_list. if fail, try to look for existing file, if fail print error
-    fetch_list()
-
-    if (all):
-        show_all()
-        exit(0)
-
-    results = search_file(keywords)
-
-    print(''.join(str(i) for i in results)) # Avoid extra white line because each line ends with \n 
-
-# Shows everything in file including titles
-def show_all():
-    with open('list') as f:
-        for line in f:
-            print(line)
-
-# searches file for keyword 
-# returns array with matching commands
-def search_file(keywords):
-    results = []
-    with open('list') as f:
-        for line in f: 
-            if 'git' not in line:
-                continue
-            line_description = line.split('|')[2] # sample line: | `git status` | Check status |
-            # print(line[2])
-            for key in keywords:
-                if re.search(key, line_description, re.IGNORECASE):
-                    results.append(line)
-    return results
+# file_name = 'list' error when used idk
 
 # retrieves list of commands from github
 def fetch_list():
@@ -52,6 +19,38 @@ def fetch_list():
     # print(response.text) # str
     with open('list', 'wb') as f:
         f.write(response.content) # bytes
+
+# Shows everything in file including titles
+def get_all():
+    results = []
+    with open('list') as f:
+        for line in f:
+            results.append(line)
+    return results
+
+# searches file for keyword 
+# returns array with matching commands
+def search_file(file_name, keywords):
+    results = []
+    with open(file_name) as _file:
+        for line in _file: 
+            if 'git' not in line:
+                continue
+            line_description = line.split('|')[2] # sample line: | `git status` | Check status |
+            if all(re.search(key, line_description, re.IGNORECASE) for key in keywords):
+                results.append(line)
+    return results
+
+def find_matches(all, keywords):
+    # try get_list. if fail, try to look for existing file, if fail print error
+    fetch_list()
+
+    if all:
+        results = get_all()
+    else:
+        results = search_file('list', keywords)
+
+    print(''.join(str(i) for i in results)) # Avoid extra white line because each line ends with \n 
 
 if __name__ == "__main__":
     find_matches()

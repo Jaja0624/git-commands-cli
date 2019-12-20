@@ -19,5 +19,5 @@ For windows:
 #### How to use
 
 * git-search --all | displays all commands
-* git-search key | displays all commands with description containing "key" substring
-* git-search key1 key2 ... keyn 
+* git-search keyword | displays all commands with description containing keyword as substring
+* git-search key1 key2 ... keyn | displays all commands that contain <b>all</b> keys
