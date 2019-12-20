@@ -21,3 +21,6 @@ For windows:
 * git-search --all | displays all commands
 * git-search keyword | displays all commands with description containing keyword as substring
 * git-search key1 key2 ... keyn | displays all commands that contain <b>all</b> keys
+
+`git-search` can be replaced with `git search` assuming the filename stays in the form `git-xxxxx`
+

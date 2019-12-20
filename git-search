@@ -4,9 +4,6 @@ import requests
 import click
 import re
 
-@click.command()
-@click.option('--all', is_flag=True, help='Show all commands')
-@click.argument('keywords', nargs=-1)
 # TODO: Add! Requires github information.
 # git-search.py --add => interaction. Step 1: Command. Step 2: Description
 
@@ -17,14 +14,14 @@ def fetch_list():
     url = 'https://raw.githubusercontent.com/Jaja0624/Git-Commands/master/README.md'
     response = requests.get(url)
     # print(response.text) # str
-    with open('list', 'wb') as f:
-        f.write(response.content) # bytes
+    with open('list', 'wb') as _file:
+        _file.write(response.content) # bytes
 
 # Shows everything in file including titles
 def get_all():
     results = []
-    with open('list') as f:
-        for line in f:
+    with open('list') as _file:
+        for line in _file:
             results.append(line)
     return results
 
@@ -41,6 +38,9 @@ def search_file(file_name, keywords):
                 results.append(line)
     return results
 
+@click.command()
+@click.option('--all', is_flag=True, help='Show all commands')
+@click.argument('keywords', nargs=-1)
 def find_matches(all, keywords):
     # try get_list. if fail, try to look for existing file, if fail print error
     fetch_list()
@@ -49,6 +49,10 @@ def find_matches(all, keywords):
         results = get_all()
     else:
         results = search_file('list', keywords)
+        
+    if not results: # empty
+        print('No results found')
+        exit(0)
 
     print(''.join(str(i) for i in results)) # Avoid extra white line because each line ends with \n 
 
