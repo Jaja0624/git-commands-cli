@@ -5,8 +5,9 @@ All commands and description are sourced from [here](https://github.com/Jaja0624
 #### Setup
 
 For windows: 
-1. chmod +x git-search
-2. add to path
+1. git clone https://github.com/Jaja0624/git-commands-cli.git
+2. chmod +x git-search
+3. add directory of git-search file to path
 
 ##### If you do not agree with the descriptions or wish to add / remove commands:
 
@@ -19,3 +20,4 @@ For windows:
 
 * git-search --all | displays all commands
 * git-search key | displays all commands with description containing "key" substring
+* git-search key1 key2 ... keyn 
